@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  ubuntu-server:
+    container_name: ubuntu-server
+    image: ubuntu
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+  centos-server:
+    container_name: centos-server
+    image: centos
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+  amazonlinux-server:
+    container_name: amazonlinux-server
+    image: amazonlinux
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
