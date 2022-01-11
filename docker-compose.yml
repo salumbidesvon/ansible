@@ -10,9 +10,10 @@ networks:
 services:
   amazonlinux-server: 
     container_name: amazonlinux-server
-    build:
-      context: .
-      dockerfile: Dockerfile.AWS
+    image: amazonlinux:2
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.AWS
     volumes:
       - ~/.aws:/root/.aws
       - ./src:/ansible
