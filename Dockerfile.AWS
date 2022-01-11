@@ -3,10 +3,9 @@ FROM amazonlinux:2
 LABEL maintainer="Von"
 
 RUN yum -y update && \
-    amazon-linux-extras enable python3.8 && \
-    amazon-linux-extras enable epel && \
-    yum install -y python38 \
-        python38-devel \
+    amazon-linux-extras enable python3.8 epel && \
+    yum install -y epel-release \
+        python38 \
         python3-pip 
 
 RUN yum makecache fast && \

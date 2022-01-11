@@ -17,6 +17,8 @@ services:
     volumes:
       - ~/.aws:/root/.aws
       - ./src:/ansible
+    ports:
+      - "22"
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     networks:
@@ -28,11 +30,13 @@ services:
     tty: true        # docker run -t
     networks:
       - net
-  centos-server:
-    container_name: centos-server
-    image: centos
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
-    networks:
-      - net
+    ports:
+      - "22"
+  # centos-server:
+  #   container_name: centos-server
+  #   image: centos
+  #   stdin_open: true # docker run -i
+  #   tty: true        # docker run -t
+  #   networks:
+  #     - net
   
