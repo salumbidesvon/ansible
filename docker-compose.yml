@@ -8,17 +8,23 @@ networks:
   net:
 
 services:
-  ubuntu-server:
-    container_name: ubuntu-server
+  amazonlinux-server: 
+    container_name: amazonlinux-server
     build:
       context: .
-      dockerfile: Dockerfile.Ubuntu
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
+      dockerfile: Dockerfile.AWS
     volumes:
-      - ansible:/home
       - ~/.aws:/root/.aws
       - ./src:/ansible
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    networks:
+      - net
+  ubuntu-server:
+    container_name: ubuntu-server
+    image: ubuntu
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
     networks:
       - net
   centos-server:
@@ -28,10 +34,4 @@ services:
     tty: true        # docker run -t
     networks:
       - net
-  amazonlinux-server:
-    container_name: amazonlinux-server
-    image: amazonlinux
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
-    networks:
-      - net
+  
