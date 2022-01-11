@@ -1,18 +1,37 @@
 version: '3.9'
 
+volumes:
+  ansible:
+     driver: local
+
+networks:
+  net:
+
 services:
   ubuntu-server:
     container_name: ubuntu-server
-    image: ubuntu
+    build:
+      context: .
+      dockerfile: Dockerfile.Ubuntu
     stdin_open: true # docker run -i
     tty: true        # docker run -t
+    volumes:
+      - ansible:/home
+      - ~/.aws:/root/.aws
+      - ./src:/ansible
+    networks:
+      - net
   centos-server:
     container_name: centos-server
     image: centos
     stdin_open: true # docker run -i
     tty: true        # docker run -t
+    networks:
+      - net
   amazonlinux-server:
     container_name: amazonlinux-server
     image: amazonlinux
     stdin_open: true # docker run -i
     tty: true        # docker run -t
+    networks:
+      - net

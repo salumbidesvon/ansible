@@ -1,0 +1,38 @@
+FROM ubuntu
+
+LABEL maintainer="Von"
+
+ARG LANG="en_US.UTF-8"
+ARG LC_ALL="en_US.UTF-8"
+
+RUN apt update && \
+    apt install -y --no-install-recommends \
+        apt-utils \
+        build-essential \
+        locales \
+        libffi-dev \
+        libssl-dev \
+        libyaml-dev \
+        python3-dev \
+        python3-setuptools \
+        python3-pip \
+        python3-yaml \
+        software-properties-common \
+        rsyslog systemd systemd-cron sudo iproute2 \
+    && apt-get clean \
+    && rm -Rf /var/lib/apt/lists/*
+
+RUN pip3 install --upgrade pip
+
+RUN pip3 install ansible && \
+    pip3 install ansible awscli \
+    && \
+    rm -rf /root/.cache/pip
+
+RUN mkdir /ansible && \
+    mkdir -p /etc/ansible && \
+    echo 'localhost' > /etc/ansible/hosts
+
+WORKDIR /ansible
+
+CMD [ "ansible-playbook", "--version" ]
