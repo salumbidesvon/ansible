@@ -13,6 +13,8 @@ RUN yum makecache fast && \
         git \
         sshpass \
         openssh-clients \
+        net-tools \
+        iproute \
         iputils && \
     pip3 install \
         ansible \
