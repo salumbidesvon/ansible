@@ -4,15 +4,18 @@ LABEL maintainer="Von"
 
 RUN yum -y update && \
     amazon-linux-extras enable python3.8 && \
-    yum install -y python38 
+    amazon-linux-extras enable epel && \
+    yum install -y python38 \
+        python38-devel \
+        python3-pip 
 
 RUN yum makecache fast && \
     yum -y install \
-        python3-pip \
         git \
         sshpass \
-        openssh-clients && \
-    pip3 install ansible-core \
+        openssh-clients \
+        iputils && \
+    pip3 install \
         ansible \
         awscliv2 && \
     awsv2 --install && \
@@ -23,3 +26,4 @@ RUN mkdir /ansible && \
     mkdir -p /etc/ansible && \
     echo 'localhost' > /etc/ansible/hosts
 
+WORKDIR /ansible
