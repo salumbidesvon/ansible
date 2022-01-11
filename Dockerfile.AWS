@@ -9,12 +9,14 @@ RUN yum -y update && \
 RUN yum makecache fast && \
     yum -y install \
         python3-pip \
-        git && \
+        git \
+        sshpass \
+        openssh-clients && \
     pip3 install ansible-core \
         ansible \
         awscliv2 && \
-    pip3 install awscliv2 && \
-    yum -y install sshpass openssh-clients && \
+    awsv2 --install && \
+    alias aws='awsv2' && \
     yum clean all && \
     rm -rf /root/.cache/pip
 
