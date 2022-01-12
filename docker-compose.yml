@@ -29,10 +29,8 @@ services:
       dockerfile: Dockerfile.Ubuntu
     stdin_open: true # docker run -i
     tty: true        # docker run -t
-    networks:
-      - net
-    expose:
-      - "22"
+    ports:
+      - "22:22"
 
 
   
