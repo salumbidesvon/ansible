@@ -8,6 +8,17 @@ networks:
   net:
 
 services:
+  ubuntu-server-1:
+    container_name: ubuntu-server-1
+    build:
+      context: .
+      dockerfile: Dockerfile.Ubuntu
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    # ports:
+    #   - "54321:22"
+    expose:
+      - "22"
   # amazonlinux-server: 
   #   container_name: amazonlinux-server
   #   build:
@@ -22,15 +33,7 @@ services:
   #   tty: true        # docker run -t
   #   networks:
   #     - net
-  ubuntu-server-1:
-    container_name: ubuntu-server-1
-    build:
-      context: .
-      dockerfile: Dockerfile.Ubuntu
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
-    ports:
-      - "22:22"
+  
 
 
   
