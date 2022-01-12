@@ -2,4 +2,4 @@
 - name: Deploy Web Application
   hosts: target1
   tasks:
-    
+    - include: tasks/install.yaml
