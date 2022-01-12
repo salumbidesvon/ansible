@@ -8,35 +8,31 @@ networks:
   net:
 
 services:
-  amazonlinux-server: 
-    container_name: amazonlinux-server
-    # image: amazonlinux:2
-    build:
-      context: .
-      dockerfile: Dockerfile.AWS
-    volumes:
-      - ~/.aws:/root/.aws
-      - ./src:/ansible
-    ports:
-      - "22"
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
-    networks:
-      - net
-  ubuntu-server:
-    container_name: ubuntu-server
-    image: ubuntu
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
-    networks:
-      - net
-    ports:
-      - "22"
-  # centos-server:
-  #   container_name: centos-server
-  #   image: centos
+  # amazonlinux-server: 
+  #   container_name: amazonlinux-server
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.AWS
+  #   volumes:
+  #     - ~/.aws:/root/.aws
+  #     - ./src:/ansible
+  #   ports:
+  #     - "22"
   #   stdin_open: true # docker run -i
   #   tty: true        # docker run -t
   #   networks:
   #     - net
+  ubuntu-server-1:
+    container_name: ubuntu-server-1
+    build:
+      context: .
+      dockerfile: Dockerfile.Ubuntu
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    networks:
+      - net
+    expose:
+      - "22"
+
+
   

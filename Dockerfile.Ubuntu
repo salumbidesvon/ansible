@@ -1,33 +1,30 @@
-FROM ubuntu:20.04
+FROM ubuntu:latest
 
-LABEL maintainer="Von"
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ='America/New_York'
 
-ARG LANG="en_US.UTF-8"
-ARG LC_ALL="en_US.UTF-8"
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+        sudo \
         apt-utils \
-        gnupg2 \
-        python3-pip \
-        sshpass git \
-        openssh-client \
+        openssh-server \
+        git \
         software-properties-common \
-        rsyslog systemd systemd-cron sudo iproute2 \
+        rsyslog systemd systemd-cron iproute2 \
     && apt-get clean \
     && rm -Rf /var/lib/apt/lists/*
 
-RUN pip3 install --upgrade pip
+RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 admin &&
 
-RUN pip3 install ansible && \
-    pip3 install ansible awscli \
-    && \
-    rm -rf /root/.cache/pip
+# RUN echo "user_name:password" | chpasswd
+RUN echo 'admin:password' | chpasswd && \
+    echo 'root:Passw0rd' | chpasswd
 
-RUN mkdir /ansible && \
-    mkdir -p /etc/ansible && \
-    echo 'localhost' > /etc/ansible/hosts
+RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config && \
+    sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
-WORKDIR /ansible
+RUN service ssh start
 
-CMD [ "ansible-playbook", "--version" ]
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd","-D"]

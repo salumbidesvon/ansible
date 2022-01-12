@@ -1,2 +1,2 @@
-target1 ansible_host=ubuntu-server 
-target2 ansible_host=localhost
+target1 ansible_host=172.21.0.2 ansible_ssh_pass=password ansible_user=admin ansible_port=52264
+target2 ansible_host=172.21.0.4
