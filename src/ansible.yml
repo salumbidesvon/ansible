@@ -1,5 +1,0 @@
----
-- name: Deploy Web Application
-  hosts: target1
-  roles:
-    - packages
