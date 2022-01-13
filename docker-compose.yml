@@ -34,11 +34,12 @@ services:
     container_name: lb01
     build:
       context: .
-      dockerfile: Dockerfile.Ubuntu
+      dockerfile: Dockerfile.Ubuntu.Web
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     expose:
       - "22"
+      - "80"
     networks:
       - net
     ports:

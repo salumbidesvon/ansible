@@ -1,0 +1,30 @@
+FROM ubuntu:latest
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ='America/New_York'
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        sudo \
+        apt-utils \
+        openssh-server \
+        git \
+        software-properties-common \
+        rsyslog systemd systemd-cron iproute2 \
+    && apt-get clean \
+    && rm -Rf /var/lib/apt/lists/*
+
+RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 admin 
+
+# RUN echo "user_name:password" | chpasswd
+RUN echo 'admin:password' | chpasswd && \
+    echo 'root:Passw0rd' | chpasswd
+
+RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config && \
+    sed -i 's/^\#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+RUN service ssh start
+
+EXPOSE 22 80 8080
+
+CMD ["/usr/sbin/sshd","-D"]
