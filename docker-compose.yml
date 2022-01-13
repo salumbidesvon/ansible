@@ -39,7 +39,6 @@ services:
     tty: true        # docker run -t
     expose:
       - "22"
-      - "80"
     networks:
       - net
     ports:
