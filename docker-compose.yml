@@ -41,6 +41,8 @@ services:
       - "22"
     networks:
       - net
+    ports:
+      - "8080:80"
   db02:
     container_name: db02
     build:

@@ -1,0 +1,7 @@
+---
+  - hosts: loadbalancer
+    tasks:
+      - name: 1.0 -- Install NGINX
+        apt: name={{ item }} state=present update_cache=yes
+        loop:
+          - nginx
