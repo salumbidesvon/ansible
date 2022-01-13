@@ -1,0 +1,12 @@
+[loadbalancer]
+lb01 ansible_host=172.18.0.5 ansible_ssh_pass=Passw0rd ansible_user=root
+
+[webserver]
+app01 ansible_host=172.18.0.3 ansible_ssh_pass=Passw0rd ansible_user=root
+app02 ansible_host=172.18.0.2 ansible_ssh_pass=Passw0rd ansible_user=root
+
+[database]
+db01 ansible_host=172.18.0.4 ansible_ssh_pass=Passw0rd ansible_user=root
+
+[control]
+control_host ansible_connection=local
