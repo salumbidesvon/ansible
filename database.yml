@@ -2,6 +2,10 @@
   - hosts: database
     become: true        # Execute as sudo
     tasks:  
+      - name: 1.0 -- Install Dependency
+        apt: name={{ item }} state=present update_cache=yes
+        loop:
+          - python3-mysqldb
       - name: Insatall MySQL server
         apt: name=mysql-server state=present update_cache=yes
 
@@ -12,6 +16,12 @@
         listeninfile: dest=/etc/mysql/my.cnf regexp=^bind-address
                       line="bind-address = 0.0.0.0"
         notify: restart_mysql
+
+      - name: Create App database
+        mysql_db: name=app state=present
+
+      - name: Create demo user
+        mysql_user: name=app-user password=demo priv=app.*:ALL host='%' state=present
 
     handlers:
       - name: restart_mysql
