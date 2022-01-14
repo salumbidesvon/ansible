@@ -1,0 +1,9 @@
+---
+  - hosts: database
+    become: true        # Execute as sudo
+    tasks:  
+      - name: Insatall MySQL server
+        apt: name=mysql-server state=present update_cache=yes
+
+      - name: Start MySql server
+        service: name=mysql state=started enabled=yes
